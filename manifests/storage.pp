@@ -34,6 +34,12 @@ class bacula::storage (
   Stdlib::Ip::Address $listen_address = $facts['ipaddress'],
   Integer             $maxconcurjobs  = 5,
   String              $media_type     = 'File',
+  Bacula::Yesno    $label_media     = true,
+  Bacula::Yesno    $random_access   = true,
+  Bacula::Yesno    $automatic_mount = true,
+  Bacula::Yesno    $removable_media = false,
+  Bacula::Yesno    $always_open     = false,
+  Hash[String, Variant[String,Bacula::Yesno,Integer]] $extra_options = {},
   String              $password       = 'secret',
   Integer             $port           = 9103,
   String              $rundir         = $bacula::rundir,
@@ -65,8 +71,14 @@ class bacula::storage (
   }
 
   bacula::storage::device { $device_name:
-    device        => $device,
-    maxconcurjobs => $maxconcurjobs,
+    device          => $device,
+    maxconcurjobs   => $maxconcurjobs,
+    label_media     => $label_media,
+    random_access   => $random_access,
+    automatic_mount => $automatic_mount,
+    removable_media => $removable_media,
+    always_open     => $always_open,
+    extra_options   => $extra_options,
   }
 
   concat::fragment { 'bacula-storage-dir':
