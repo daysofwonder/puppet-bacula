@@ -13,6 +13,7 @@
     Optional[String] $storage,
     String $purgeaction,
     Optional[String] $next_pool,
+    Optional[String] $cleaning_prefix,
   |
 -%>
 Pool {
@@ -44,6 +45,9 @@ Pool {
     Action On Purge      = <%= $purgeaction %>
 <% if $next_pool { -%>
     Next Pool            = <%= $next_pool %>
+<% } -%>
+<% if $cleaning_prefix { -%>
+    Cleaning Prefix      = <%= $cleaning_prefix %>
 <% } -%>
 }
 

@@ -37,6 +37,7 @@ define bacula::director::pool (
   String                            $purgeaction    = 'Truncate',
   Optional[String]                  $next_pool      = undef,
   String                            $conf_dir       = $bacula::conf_dir,
+  Optional[String]                  $cleaning_prefix = undef,
 ) {
   $epp_pool_variables = {
     name           => $name,
@@ -52,6 +53,7 @@ define bacula::director::pool (
     storage        => $storage,
     purgeaction    => $purgeaction,
     next_pool      => $next_pool,
+    cleaning_prefix => $cleaning_prefix,
   }
 
   concat::fragment { "bacula-director-pool-${name}":
