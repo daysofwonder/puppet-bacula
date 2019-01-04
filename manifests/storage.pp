@@ -40,6 +40,7 @@ class bacula::storage (
   String              $storage        = $trusted['certname'], # storage here is not storage_name
   String              $address        = $facts['fqdn'],
   String              $user           = $bacula::bacula_user,
+  Bacula::Yesno       $autochanger    = false,
 ) inherits bacula {
 
   # Allow for package names to include EPP syntax for db_type
@@ -98,6 +99,7 @@ class bacula::storage (
     device_name   => $device_name,
     media_type    => $media_type,
     maxconcurjobs => $maxconcurjobs,
+    autochanger   => $autochanger,
     tag           => "bacula-${director_name}",
   }
 }

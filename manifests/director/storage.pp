@@ -19,6 +19,7 @@ define bacula::director::storage (
   String  $media_type    = 'File',
   Integer $maxconcurjobs = 1,
   String  $conf_dir      = $bacula::conf_dir,
+  Bacula::Yesno $autochanger   = false,
 ) {
   $epp_storage_variables = {
     name          => $name,
@@ -28,6 +29,7 @@ define bacula::director::storage (
     device_name   => $device_name,
     media_type    => $media_type,
     maxconcurjobs => $maxconcurjobs,
+    autochanger   => $autochanger,
   }
 
   concat::fragment { "bacula-director-storage-${name}":
