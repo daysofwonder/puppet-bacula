@@ -33,6 +33,7 @@ define bacula::storage::device (
   String           $device_seltype  = $bacula::device_seltype,
   String           $director_name   = $bacula::director_name,
   String           $group           = $bacula::bacula_group,
+  Hash[String, Variant[String,Bacula::Yesno,Integer]] $extra_options = {},
 ) {
   $epp_device_variables = {
     device_name     => $device_name,
@@ -44,6 +45,7 @@ define bacula::storage::device (
     removable_media => $removable_media,
     always_open     => $always_open,
     maxconcurjobs   => $maxconcurjobs,
+    extra_options   => $extra_options,
   }
 
   concat::fragment { "bacula-storage-device-${name}":

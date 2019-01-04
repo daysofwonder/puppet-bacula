@@ -9,6 +9,7 @@
     Bacula::Yesno $removable_media,
     Bacula::Yesno $always_open,
     Integer $maxconcurjobs,
+    Hash[String, Variant[String,Bacula::Yesno,Integer]] $extra_options
   |
 -%>
 Device {
@@ -21,4 +22,10 @@ Device {
     RemovableMedia = <%= bacula::yesno2str($removable_media) %>;
     AlwaysOpen     = <%= bacula::yesno2str($always_open) %>;
     Maximum Concurrent Jobs = <%= $maxconcurjobs %>
+<% $extra_options.each |$option, $value| { -%>
+    <%= split($option, '_').map |$t| { capitalize($t) }.join(' ') -%> = <%= $value ? {
+        Bacula::Yesno => bacula::yesno2str($value),
+        default       => $value,
+    } %>
+<% } -%>
 }
