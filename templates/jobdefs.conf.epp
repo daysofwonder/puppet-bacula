@@ -13,6 +13,7 @@
     Bacula::Yesno     $reschedule_on_error,
     Bacula::Time      $reschedule_interval,
     Integer           $reschedule_times,
+    Hash[String, String] $extra_options = {},
   |
 -%>
 JobDefs {
@@ -28,6 +29,9 @@ JobDefs {
 <% } -%>
 <% if $max_concurrent_jobs { -%>
     Maximum Concurrent Jobs = <%= $max_concurrent_jobs %>
+<% } -%>
+<% $extra_options.each |$key, $value| { -%>
+   <%= split($key, '_').map |$t| { capitalize($t) }.join(' ') -%> = <%= $value %>
 <% } -%>
 <%= epp('bacula/_job_reschedule.epp', { reschedule_on_error => $reschedule_on_error, reschedule_interval => $reschedule_interval, reschedule_times => $reschedule_times }) -%>
 }

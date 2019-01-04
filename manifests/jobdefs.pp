@@ -22,6 +22,7 @@ define bacula::jobdefs (
   Bacula::Time     $reschedule_interval = '1 hour',
   Integer          $reschedule_times    = 10,
   Integer          $max_concurrent_jobs = 1,
+  Hash[String, String] $extra_options     = {},
 ) {
 
   include bacula
@@ -40,6 +41,7 @@ define bacula::jobdefs (
     reschedule_on_error => $reschedule_on_error,
     reschedule_interval => $reschedule_interval,
     reschedule_times    => $reschedule_times,
+    extra_options       => $extra_options,
   }
 
   concat::fragment { "bacula-jobdefs-${name}":
