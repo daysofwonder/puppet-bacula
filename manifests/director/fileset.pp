@@ -18,6 +18,8 @@ define bacula::director::fileset (
   String                                       $conf_dir      = $bacula::conf_dir,
   String                                       $director_name = $bacula::director_name,
   Array[String]                                $excludes      = [],
+  Bacula::Yesno                                $ignore_fileset_changes = false,
+  Bacula::Yesno                                $enable_vss    = false,
   Hash[String, Variant[String, Array[String], Bacula::Yesno]] $options       = {
     'signature'   => 'SHA1',
     'compression' => 'GZIP9',
@@ -28,6 +30,8 @@ define bacula::director::fileset (
     options  => $options,
     files    => $files,
     excludes => $excludes,
+    ignore_fileset_changes => $ignore_fileset_changes,
+    enable_vss =>  $enable_vss,
   }
 
   concat::fragment { "bacula-fileset-${name}":

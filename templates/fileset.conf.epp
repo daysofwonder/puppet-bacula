@@ -4,10 +4,14 @@
     Hash[String,Variant[String,Array[String],Bacula::Yesno]] $options,
     Array[String] $files,
     Array[String] $excludes,
+    Bacula::Yesno $ignore_fileset_changes,
+    Bacula::Yesno $enable_vss,
   |
 -%>
 FileSet {
   Name = <%= $name %>
+  Ignore FileSet Changes = <%= bacula::yesno2str($ignore_fileset_changes) %>
+  Enable VSS = <%= bacula::yesno2str($enable_vss) %>
   Include {
     Options {
 <% $options.each |$option, $optval| { -%>
