@@ -22,6 +22,8 @@
     Bacula::Yesno $reschedule_on_error,
     Bacula::Time $reschedule_interval,
     Integer $reschedule_times,
+    Bacula::Yesno $spool_data,
+    Optional[String] $write_bootstrap,
   |
 -%>
 Job {
@@ -98,6 +100,12 @@ Job {
 <%= epp('bacula/_job_reschedule.epp', { reschedule_on_error => $reschedule_on_error, reschedule_interval => $reschedule_interval, reschedule_times => $reschedule_times }) -%>
 <% if $max_concurrent_jobs { -%>
     Maximum Concurrent Jobs = <%= $max_concurrent_jobs %>
+<% } -%>
+<% if $spool_data { -%>
+    Spool Data = <%= bacula::yesno2str($spool_data) %>
+<% } -%>
+<% if $write_bootstrap { -%>
+    Write Bootstrap = <%= $write_bootstrap %>
 <% } -%>
 }
 
