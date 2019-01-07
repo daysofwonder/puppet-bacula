@@ -24,12 +24,13 @@
     Integer $reschedule_times,
     Bacula::Yesno $spool_data,
     Optional[String] $write_bootstrap,
+    String $client,
   |
 -%>
 Job {
     Name             = <%= $name %>
     Type             = <%= $jobtype %>
-    Client           = <%= $clientcert %>-fd
+    Client           = <%= $client %>
     FileSet          = <%= $fileset_real %>
 <% if $pool { -%>
     Pool             = <%= $pool %>

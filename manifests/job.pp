@@ -75,6 +75,7 @@ define bacula::job (
   Integer                  $max_concurrent_jobs = 1,
   Optional[String]         $write_bootstrap     = undef,
   Bacula::Yesno            $spool_data          = false,
+  Optional[String]         $client              = undef,
 ) {
 
   include bacula
@@ -135,7 +136,11 @@ define bacula::job (
     reschedule_interval => $reschedule_interval,
     reschedule_times    => $reschedule_times,
     write_bootstrap     => $write_bootstrap,
-    spool_data          => $spool_data
+    spool_data          => $spool_data,
+    client              => $client ? {
+      undef   => "${clientcert}-fd",
+      default => $client
+    },
   }
 
   @@bacula::director::job { $name:
