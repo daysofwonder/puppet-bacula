@@ -27,6 +27,7 @@ define bacula::director::client (
   Bacula::Time            $job_retention,
   Bacula::Yesno           $autoprune,
   String                  $conf_dir = $bacula::conf_dir,
+  Integer                 $max_concurrent_jobs = 2,
 ) {
   $epp_client_variables = {
     name           => $name,
@@ -36,6 +37,7 @@ define bacula::director::client (
     file_retention => $file_retention,
     job_retention  => $job_retention,
     autoprune      => $autoprune,
+    max_concurrent_jobs => $max_concurrent_jobs,
   }
 
   concat::fragment { "bacula-director-client-${name}":

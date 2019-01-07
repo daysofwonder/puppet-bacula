@@ -7,6 +7,7 @@
     Bacula::Time $file_retention,
     Bacula::Time $job_retention,
     Bacula::Yesno $autoprune,
+    Integer $max_concurrent_jobs,
   |
 -%>
 Client {
@@ -18,6 +19,7 @@ Client {
     File Retention = <%= $file_retention %>
     Job Retention  = <%= $job_retention %>
     AutoPrune      = <%= bacula::yesno2str($autoprune) %>
+    Maximum Concurrent Jobs = <%= $max_concurrent_jobs %>
 <%= epp('bacula/_tls_client.epp') %>
 }
 
