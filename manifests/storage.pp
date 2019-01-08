@@ -79,6 +79,7 @@ class bacula::storage (
     removable_media => $removable_media,
     always_open     => $always_open,
     extra_options   => $extra_options,
+    media_type      => $media_type,
   }
 
   concat::fragment { 'bacula-storage-dir':
