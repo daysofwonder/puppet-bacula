@@ -47,6 +47,8 @@ class bacula::storage (
   String              $address        = $facts['fqdn'],
   String              $user           = $bacula::bacula_user,
   Bacula::Yesno       $autochanger    = false,
+  Optional[String]    $changer_command = undef,
+  Optional[String]    $changer_device  = undef,
 ) inherits bacula {
 
   # Allow for package names to include EPP syntax for db_type
@@ -103,6 +105,15 @@ class bacula::storage (
     mode      => '0640',
     show_diff => false,
     notify    => Service[$services],
+  }
+
+  if $autochanger {
+    bacula::storage::autochanger { $storage:
+      device_name     => $device_name,
+      changer_command => $changer_command,
+      changer_device  => $changer_device,
+      conf_dir        => $conf_dir,
+    }
   }
 
   @@bacula::director::storage { $storage:
