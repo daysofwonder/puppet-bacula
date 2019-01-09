@@ -10,7 +10,11 @@ Director {                # define myself
     Pid Directory           = <%= $bacula::director::rundir %>
     Maximum Concurrent Jobs = <%= $bacula::director::max_concurrent_jobs %>
     Password                = "<%= $bacula::director::password %>"  # Console password
+<% if $bacula::director::default_messages != undef { %>
+    Messages                = <%= $bacula::director::default_messages %>
+<% } else { -%>
     Messages                = Daemon
+<% } -%>
 <%= epp('bacula/_tls_server.epp') %>
 <% if $bacula::director::tls_dh_file != undef { %>
     TLS DH File             = <%= $bacula::director::tls_dh_file %>

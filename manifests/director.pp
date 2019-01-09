@@ -56,6 +56,7 @@ class bacula::director (
   Integer                       $port                = 9101,
   String                        $rundir              = $bacula::rundir,
   String                        $storage_name        = $bacula::storage_name,
+  Optional[String]              $default_messages    = undef,
 ) inherits bacula {
 
   if $manage_defaults {
@@ -64,7 +65,7 @@ class bacula::director (
     bacula::job { 'RestoreFiles':
       jobtype             => 'Restore',
       jobdef              => false,
-      messages            => 'Standard',
+      messages            => $default_messages,
       fileset             => 'Common',
       max_concurrent_jobs => $max_concurrent_jobs,
     }
